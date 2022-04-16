@@ -88,7 +88,7 @@
     <br>
 
     <button class="btn btn-outline-success" (click)="checkWeather()">
-      Let's Check When Washing Your Car Is A Good Idea!!
+      Let's go!!
     </button>
 
     <br>
@@ -96,12 +96,18 @@
 
     <div class="col-lg-12">
       <div class="row">
-        <div class="col border border-2 p-2" *ngFor="let x of displayCards">
-          {{ x.date }}
-          <br>
-          {{ x.weather[0].main }}
-          <br>
-          {{ x.daysClean }}
+        <div class="col-sm-12 border border-2 p-2" *ngFor="let x of displayCards">
+          <div class="row">
+            <div class="col">
+              {{ x.date }}
+            </div>
+            <div class="col">
+              {{ x.weather[0].main }}
+            </div>
+            <div class="col">
+              {{ x.daysClean }}
+            </div>
+          </div>
         </div>
       </div>
     </div>
