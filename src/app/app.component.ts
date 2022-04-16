@@ -48,6 +48,8 @@ export class AppComponent {
   displayCards: Array<any> = [];
   indicesOfAvoidablesInDisplayCards: Array<number> = [];
 
+  bestDays: number = 0;
+
   constructor(httpService: HttpService) {
     this.httpService = httpService;
   }
@@ -146,6 +148,53 @@ export class AppComponent {
     this.displayCards.push(displayCards);
   }
 
+  bestDay() {
+    return Math.max(
+      ...this.displayCards.map(function (displayCard: DisplayCards) {
+        return displayCard.daysClean;
+      })
+    );
+  }
+
+  calculateDays() {
+    for (let { index, displayCard } of this.displayCards.map(
+      (displayCard, index) => ({
+        index,
+        displayCard,
+      })
+    )) {
+      for (let avoidable of this.selectedAvoidableList) {
+        let avoidableName = avoidable['name'];
+        let weatherMain = displayCard['weather'][0]['main'];
+        if (avoidableName == weatherMain) {
+          this.indicesOfAvoidablesInDisplayCards.push(index);
+        }
+      }
+    }
+    this.indicesOfAvoidablesInDisplayCards.push(this.displayCards.length);
+
+    let baseIndex = 0;
+    let previousAvoidableIndex = -2;
+
+    if (this.indicesOfAvoidablesInDisplayCards.length > 0) {
+      for (let indexOfAvoidable of this.indicesOfAvoidablesInDisplayCards) {
+        for (let { index, displayCard } of this.displayCards.map(
+          (displayCard, index) => ({ index, displayCard })
+        )) {
+          if (index == indexOfAvoidable) {
+            displayCard.daysClean = 0;
+            previousAvoidableIndex = indexOfAvoidable;
+            break;
+          } else if (index > previousAvoidableIndex) {
+            displayCard.daysClean = indexOfAvoidable - index;
+          } else continue;
+        }
+      }
+    }
+
+    return;
+  }
+
   async checkWeather() {
     // Reset the variables used below
     this.reset();
@@ -180,54 +229,10 @@ export class AppComponent {
 
     // Find the days the car can't be washed
     this.selectedAvoidableList = this.getSelectedAvoidables();
-    for (let { index, displayCard } of this.displayCards.map(
-      (displayCard, index) => ({
-        index,
-        displayCard,
-      })
-    )) {
-      for (let avoidable of this.selectedAvoidableList) {
-        let avoidableName = avoidable['name'];
-        let weatherMain = displayCard['weather'][0]['main'];
-        if (avoidableName == weatherMain) {
-          this.indicesOfAvoidablesInDisplayCards.push(index);
-        }
-      }
-    }
+    this.calculateDays();
 
-    let baseIndex = 0;
-    let previousAvoidableIndex = 0;
-    if (this.indicesOfAvoidablesInDisplayCards.length > 0) {
-      for (let indexOfAvoidable of this.indicesOfAvoidablesInDisplayCards) {
-        for (let { index, displayCard } of this.displayCards.map(
-          (displayCard, index) => ({
-            index,
-            displayCard,
-          })
-        )) {
-          if (
-            index < indexOfAvoidable &&
-            indexOfAvoidable - previousAvoidableIndex > 1
-          ) {
-            displayCard.daysClean = indexOfAvoidable - index;
-          }
-        }
-        if (
-          this.indicesOfAvoidablesInDisplayCards[baseIndex] -
-            this.indicesOfAvoidablesInDisplayCards[baseIndex + 1] ==
-          1
-        ) {
-          baseIndex++;
-          continue;
-        }
-        previousAvoidableIndex = indexOfAvoidable;
-      }
-    } else {
-      let totalDays = this.displayCards.length;
-      for (let displayCard of this.displayCards) {
-        displayCard.daysClean = totalDays--;
-      }
-    }
+    this.bestDays = this.bestDay();
+    console.log(this.bestDays);
   }
 
   convertUnixDateTime(date: number) {

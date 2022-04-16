@@ -11,12 +11,12 @@
       <div class="row">
         <label class="col-lg-6">Please Select Your State:</label>
         <div class="col-lg-6" style="position: relative;">
-          <input class="col-lg-12 form-control" type="text" (keyup)="searchForState($event)" [(ngModel)]="searchedState"
-            placeholder="Search for your state" />
-          <ul class="col-lg-12 dropdown p-0 border border-1"
+          <input class="col-lg-12 form-control text-center" type="text" (keyup)="searchForState($event)"
+            [(ngModel)]="searchedState" placeholder="Search for your state" />
+          <ul class="col-lg-12 dropdown p-0 border border-1 w-100"
             style="position: absolute; max-height: 250px; overflow-y: scroll; z-index: 999; background: white;"
             *ngIf="displayFilteredStates">
-            <li class="dropdown-item border" *ngFor="let filteredState of filteredStates"
+            <li class="dropdown-item border w-100" *ngFor="let filteredState of filteredStates"
               (click)="selectState(filteredState)">
               {{ filteredState }}
             </li>
@@ -31,12 +31,12 @@
       <div class="row">
         <label class="col-lg-6">Please Select Your City:</label>
         <div class="col-lg-6" style="position: relative;">
-          <input class="col-lg-12 form-control" type="text" (keyup)="searchForCity($event)" [(ngModel)]="searchedCity"
-            placeholder="Search for your city" />
-          <ul class="col-lg-12 dropdown p-0 border border-1"
+          <input class="col-lg-12 form-control text-center" type="text" (keyup)="searchForCity($event)"
+            [(ngModel)]="searchedCity" placeholder="Search for your city" />
+          <ul class="col-lg-12 dropdown p-0 border border-1 w-100"
             style="position: absolute; max-height: 250px; overflow-y: scroll; z-index: 999; background: white;"
             *ngIf="displayFilteredCities">
-            <li class="dropdown-item border" *ngFor="let filteredCity of filteredCities"
+            <li class="dropdown-item border w-100" *ngFor="let filteredCity of filteredCities"
               (click)="selectCity(filteredCity)">
               {{ filteredCity.city }}
             </li>
@@ -46,7 +46,7 @@
     </div>
 
     <br>
-
+    <!-- 
     <div class="col-lg-12">
       <div class="row">
         <div class="col-lg-6">
@@ -68,7 +68,7 @@
       </div>
     </div>
 
-    <br>
+    <br> -->
 
     <div class="col-lg-12" role="group">
       <div class="row">

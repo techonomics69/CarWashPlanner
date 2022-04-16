@@ -9,7 +9,7 @@ import { Constants, GeoApiOptions, OneCallApiOptions } from './constants';
   providedIn: 'root',
 })
 export class HttpService {
-  geoApiBase = 'http://api.openweathermap.org/geo/1.0/direct?q=';
+  geoApiBase = 'https://api.openweathermap.org/geo/1.0/direct?q=';
   oneCallApiBase = 'https://api.openweathermap.org/data/2.5/onecall?';
 
   geoApiOptions = '';
