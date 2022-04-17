@@ -94,18 +94,21 @@
     <br>
     <br>
 
-    <div class="col-lg-12">
+    <div class="col-lg-12 mb-5">
       <div class="row">
-        <div class="col-sm-12 border border-2 p-2" *ngFor="let x of displayCards">
-          <div class="row">
+        <div *ngFor="let x of displayCards"
+          [ngClass]="bestDays == x.daysClean ?'border-success col-sm-12 border p-2 border-5':'col-sm-12 border p-2'">
+          <div class=" row">
             <div class="col">
               {{ x.date }}
             </div>
             <div class="col">
-              {{ x.weather[0].main }}
+              <p class="small">Weather Predicted:</p>
+              <b>{{ x.weather[0].main }}</b>
             </div>
             <div class="col">
-              {{ x.daysClean }}
+              <p class="mb-0 small">Clean For</p>
+              {{ x.daysClean }} days
             </div>
           </div>
         </div>
