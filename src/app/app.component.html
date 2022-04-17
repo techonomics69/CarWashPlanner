@@ -7,9 +7,9 @@
 
     <br>
 
-    <div class="col-lg-12">
-      <div class="row">
-        <label class="col-lg-6">Please Select Your State:</label>
+    <div class="row">
+      <div class="col-lg-12">
+        <label class="col-lg-6">Let's start with your state:</label>
         <div class="col-lg-6" style="position: relative;">
           <input class="col-lg-12 form-control text-center" type="text" (keyup)="searchForState($event)"
             [(ngModel)]="searchedState" placeholder="Search for your state" />
@@ -27,9 +27,9 @@
 
     <br>
 
-    <div class="col-lg-12">
-      <div class="row">
-        <label class="col-lg-6">Please Select Your City:</label>
+    <div class="row">
+      <div class="col-lg-12">
+        <label class="col-lg-6">What city are you in?</label>
         <div class="col-lg-6" style="position: relative;">
           <input class="col-lg-12 form-control text-center" type="text" (keyup)="searchForCity($event)"
             [(ngModel)]="searchedCity" placeholder="Search for your city" />
@@ -70,17 +70,19 @@
 
     <br> -->
 
-    <div class="col-lg-12" role="group">
-      <div class="row">
+    <div class="row">
+      <div class="col-lg-12" role="group">
         <div class="col-lg-6">
           <label>What weather conditions you would like to avoid?</label>
         </div>
         <div class="col-lg-6">
-          <label class="col btn-outline-primary" ngbButtonLabel *ngFor="let avoidable of avoidables">
-            <i class="{{ avoidable.icon }}"></i>
-            <input type="checkbox" class="btn-check" ngbButton [ngModel]="avoidable.name"
-              (click)="selectAvoidable(avoidable.name)"> {{ avoidable.name }}
-          </label>
+          <div class="col m-1 btn-outline-primary" ngbButtonLabel *ngFor="let avoidable of avoidables">
+            <label>
+              <i class="{{ avoidable.icon }}"></i>
+              <input type="checkbox" class="btn-check" ngbButton [ngModel]="avoidable.name"
+                (click)="selectAvoidable(avoidable.name)"> {{ avoidable.name }}
+            </label>
+          </div>
         </div>
       </div>
     </div>
@@ -94,19 +96,19 @@
     <br>
     <br>
 
-    <div class="col-lg-12 mb-5">
-      <div class="row">
+    <div class="row">
+      <div class="col-lg-12 mb-5">
         <div *ngFor="let x of displayCards"
-          [ngClass]="bestDays == x.daysClean ?'border-success col-sm-12 border p-2 border-5':'col-sm-12 border p-2'">
+          [ngClass]="bestDays == x.daysClean ?'border-success col-sm-12 border p-2 border-5 best-day':'col-sm-12 border p-2'">
           <div class=" row">
             <div class="col">
               {{ x.date }}
             </div>
             <div class="col">
-              <p class="small">Weather Predicted:</p>
+              <p class="mb-0 small">Weather:</p>
               <b>{{ x.weather[0].main }}</b>
             </div>
-            <div class="col">
+            <div class="col" [ngClass]="bestDays == x.daysClean ?'bold':''">
               <p class="mb-0 small">Clean For</p>
               {{ x.daysClean }} days
             </div>
