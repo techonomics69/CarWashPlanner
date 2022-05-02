@@ -68,55 +68,74 @@ export class AppComponent {
     return this.avoidables.filter((x) => x.selected === true);
   }
 
-  searchForState(event: any) {
+  searchForCity(event: any) {
     // Populate the dropdown with searched state
+
+    // if (event.target.value === '') {
+    //   this.selectedState = '';
+    //   this.searchedCity = '';
+    //   this.selectedCity = '';
+    //   this.displayFilteredStates = false;
+    //   return (this.filteredStates = []);
+    // }
+    // this.filteredStates = this.states.filter((state) => {
+    //   this.displayFilteredStates = true;
+    //   return state.toLowerCase().includes(event.target.value.toLowerCase());
+    // });
+    // return false;
+
+    // Search for City, State
     if (event.target.value === '') {
       this.selectedState = '';
       this.searchedCity = '';
       this.selectedCity = '';
-      this.displayFilteredStates = false;
-      return (this.filteredStates = []);
-    }
-    this.filteredStates = this.states.filter((state) => {
-      this.displayFilteredStates = true;
-      return state.toLowerCase().includes(event.target.value.toLowerCase());
-    });
-    return false;
-  }
-
-  selectState(state: string) {
-    // Selects a state and sets the value of the input box
-    this.selectedState = state;
-    this.searchedState = state;
-    this.displayFilteredStates = false;
-  }
-
-  searchForCity(event: any) {
-    // Populate the dropdown with searched state
-    if (event.target.value === '') {
       this.displayFilteredCities = false;
       return (this.filteredCities = []);
     }
-    this.filteredCities = this.cities.filter((city) => {
+    this.filteredCities = this.cities.filter((cities) => {
       this.displayFilteredCities = true;
-      if (
-        city.city.toLowerCase().includes(event.target.value.toLowerCase()) &&
-        city.state === this.selectedState
-      ) {
-        return city.city
-          .toLowerCase()
-          .includes(event.target.value.toLowerCase());
-      } else return false;
+      return cities.city
+        .toLowerCase()
+        .includes(event.target.value.toLowerCase());
     });
     return false;
   }
 
-  selectCity(city: CityList) {
+  selectCity(city: any) {
     // Selects a state and sets the value of the input box
+    debugger;
+    this.searchedCity = city.city + ', ' + city.state;
     this.selectedCity = city.city;
-    this.searchedCity = city.city;
+    this.selectedState = city.state;
     this.displayFilteredCities = false;
   }
+
+  // searchForCity(event: any) {
+  //   // Populate the dropdown with searched state
+  //   if (event.target.value === '') {
+  //     this.displayFilteredCities = false;
+  //     return (this.filteredCities = []);
+  //   }
+  //   this.filteredCities = this.cities.filter((city) => {
+  //     this.displayFilteredCities = true;
+  //     if (
+  //       city.city.toLowerCase().includes(event.target.value.toLowerCase()) &&
+  //       city.state === this.selectedState
+  //     ) {
+  //       return city.city
+  //         .toLowerCase()
+  //         .includes(event.target.value.toLowerCase());
+  //     } else return false;
+  //   });
+  //   return false;
+  // }
+
+  // selectCity(city: CityList) {
+  //   // Selects a state and sets the value of the input box
+  //   this.selectedCity = city.city;
+  //   this.searchedCity = city.city;
+  //   this.displayFilteredCities = false;
+  // }
 
   async geoCodeApi(options: GeoApiOptions) {
     return new Promise((resolve, reject) => {

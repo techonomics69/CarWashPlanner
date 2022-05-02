@@ -9,16 +9,16 @@
 
     <div class="row">
       <div class="col-lg-12">
-        <label class="col-lg-6">Let's start with your state:</label>
-        <div class="col-lg-6" style="position: relative;">
-          <input class="col-lg-12 form-control text-center" type="text" (keyup)="searchForState($event)"
-            [(ngModel)]="searchedState" placeholder="Search for your state" />
+        <label class="col-lg-6 col-sm-12 m-auto">Let's start with your city:</label>
+        <div class="col-lg-6 col-sm-12 m-auto" style="position: relative;">
+          <input class="col-lg-12 form-control text-center" type="text" (keyup)="searchForCity($event)"
+            [(ngModel)]="searchedCity" placeholder=" Search for your city" />
           <ul class="col-lg-12 dropdown p-0 border border-1 w-100"
             style="position: absolute; max-height: 250px; overflow-y: scroll; z-index: 999; background: white;"
-            *ngIf="displayFilteredStates">
-            <li class="dropdown-item border w-100" *ngFor="let filteredState of filteredStates"
-              (click)="selectState(filteredState)">
-              {{ filteredState }}
+            *ngIf="displayFilteredCities">
+            <li class="dropdown-item border w-100" *ngFor="let filteredCity of filteredCities"
+              (click)="selectCity(filteredCity)">
+              {{ filteredCity.city }}, {{ filteredCity.state }}
             </li>
           </ul>
         </div>
@@ -27,10 +27,10 @@
 
     <br>
 
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-lg-12">
-        <label class="col-lg-6">What city are you in?</label>
-        <div class="col-lg-6" style="position: relative;">
+        <label class="col-lg-6 col-sm-12 m-auto">What city are you in?</label>
+        <div class="col-lg-6 col-sm-12 m-auto" style="position: relative;">
           <input class="col-lg-12 form-control text-center" type="text" (keyup)="searchForCity($event)"
             [(ngModel)]="searchedCity" placeholder="Search for your city" />
           <ul class="col-lg-12 dropdown p-0 border border-1 w-100"
@@ -45,7 +45,8 @@
       </div>
     </div>
 
-    <br>
+    <br> -->
+
     <!-- 
     <div class="col-lg-12">
       <div class="row">
@@ -72,17 +73,27 @@
 
     <div class="row">
       <div class="col-lg-12" role="group">
-        <div class="col-lg-6">
-          <label>What weather conditions you would like to avoid?</label>
+        <div class="col-lg-6 col-sm-12 m-auto">
+          <label>Weather conditions avoided</label>
         </div>
-        <div class="col-lg-6">
-          <div class="col m-1 btn-outline-primary" ngbButtonLabel *ngFor="let avoidable of avoidables">
+        <div class="col-lg-6 col-sm-12 m-auto">
+          <button class="col m-1 btn-outline-primary" ngbButtonLabel *ngFor="let avoidable of avoidables"
+            [ngClass]="avoidable.selected == true ?'active':''">
             <label>
               <i class="{{ avoidable.icon }}"></i>
               <input type="checkbox" class="btn-check" ngbButton [ngModel]="avoidable.name"
                 (click)="selectAvoidable(avoidable.name)"> {{ avoidable.name }}
             </label>
-          </div>
+          </button>
+
+          <!-- <div class="col m-1 btn-outline-primary" ngbButtonLabel *ngFor="let avoidable of avoidables">
+            <label>
+              <i class="{{ avoidable.icon }}"></i>
+              <input type="checkbox" class="btn-check" ngbButton [ngModel]="avoidable.name"
+                (click)="selectAvoidable(avoidable.name)"> {{ avoidable.name }}
+            </label>
+          </div> -->
+
         </div>
       </div>
     </div>
