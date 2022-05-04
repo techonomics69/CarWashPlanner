@@ -75,10 +75,11 @@
       <div class="col-lg-12" role="group">
         <div class="col-lg-6 col-sm-12 m-auto">
           <label>Weather conditions avoided</label>
+          <small class="ml-1 d-none">Select all</small>
         </div>
         <div class="col-lg-6 col-sm-12 m-auto">
-          <button class="col m-1 btn-outline-primary" ngbButtonLabel *ngFor="let avoidable of avoidables"
-            [ngClass]="avoidable.selected == true ?'active':''">
+          <button ngbButtonLabel *ngFor="let avoidable of avoidables"
+            [ngClass]="avoidable.selected == true ?'col m-1 btn-success':'col m-1 btn-outline-primary'">
             <label>
               <i class="{{ avoidable.icon }}"></i>
               <input type="checkbox" class="btn-check" ngbButton [ngModel]="avoidable.name"
@@ -100,7 +101,7 @@
 
     <br>
 
-    <button class="btn btn-outline-success" (click)="checkWeather()">
+    <button class="btn btn-outline-success" (click)="letsGo()">
       Let's go!!
     </button>
 

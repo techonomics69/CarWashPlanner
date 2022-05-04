@@ -103,7 +103,6 @@ export class AppComponent {
 
   selectCity(city: any) {
     // Selects a state and sets the value of the input box
-    debugger;
     this.searchedCity = city.city + ', ' + city.state;
     this.selectedCity = city.city;
     this.selectedState = city.state;
@@ -214,7 +213,21 @@ export class AppComponent {
     return;
   }
 
-  async checkWeather() {
+  async letsGo() {
+    // Check if everything looks good to go
+    if (this.selectedCity == '') {
+      alert('Please select a city to proceed!');
+      return;
+    }
+
+    // Find the days the car can't be washed
+    this.selectedAvoidableList = this.getSelectedAvoidables();
+
+    if (this.selectedAvoidableList.length == 0) {
+      alert('Please select at least one weather condition to avoid!');
+      return;
+    }
+
     // Reset the variables used below
     this.reset();
 
@@ -246,12 +259,8 @@ export class AppComponent {
       });
     }
 
-    // Find the days the car can't be washed
-    this.selectedAvoidableList = this.getSelectedAvoidables();
     this.calculateDays();
-
     this.bestDays = this.bestDay();
-    console.log(this.bestDays);
   }
 
   convertUnixDateTime(date: number) {
